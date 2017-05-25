@@ -1,0 +1,505 @@
+set nocompatible               " be iMproved
+filetype off
+
+
+
+if has('vim_starting')
+    set runtimepath+=~/.vim/bundle/neobundle.vim
+    call neobundle#begin(expand('~/.vim/bundle/'))
+    NeoBundleFetch 'Shougo/neobundle.vim'
+
+    NeoBundle 'Shougo/vimproc.vim', {
+    \ 'build' : {
+    \     'windows' : 'tools\\update-dll-mingw',
+    \     'cygwin' : 'make -f make_cygwin.mak',
+    \     'mac' : 'make -f make_mac.mak',
+    \     'linux' : 'make',
+    \     'unix' : 'gmake',
+    \    },
+    \ }
+
+    " originalrepos on github
+    NeoBundle 'Shougo/neobundle.vim'
+    NeoBundle 'VimClojure'
+    " NeoBundle 'Shougo/neosnippet'
+    " NeoBundle 'Shougo/vimshell'
+    " NeoBundle 'Shougo/unite.vim'
+    NeoBundle 'Shougo/neocomplcache'
+    NeoBundle 'jpalardy/vim-slime'
+    " NeoBundle 'scrooloose/syntastic'
+    NeoBundle 'scrooloose/nerdtree'
+    NeoBundle 'szw/vim-tags'
+
+    NeoBundle 'alpaca-tc/alpaca_powertabline'
+    " NeoBundle 'Lokaltog/powerline', { 'rtp' : 'powerline/bindings/vim'}
+    NeoBundle 'itchyny/lightline.vim'
+    NeoBundle 'tpope/vim-fugitive'
+    NeoBundle 'airblade/vim-gitgutter'
+
+    NeoBundle 'osyo-manga/vim-over'
+    NeoBundle 'kien/rainbow_parentheses.vim'
+
+    " Markdown style & preview
+    NeoBundle 'plasticboy/vim-markdown'
+    NeoBundle 'kannokanno/previm'
+    NeoBundle 'tyru/open-browser.vim'
+
+    " 括弧を自動的に補完
+    NeoBundle 'Townk/vim-autoclose'
+
+    " HTML simple edit
+    NeoBundle 'mattn/emmet-vim'
+    " find file
+    NeoBundle 'grep.vim'
+
+    " コメントアウトを簡単に
+    NeoBundle "tyru/caw.vim.git"
+    "----------------------------------------------------
+    " コメントアウトのショートカットキー設定
+    "----------------------------------------------------
+    nmap <C-K> <Plug>(caw:i:toggle)
+    vmap <C-K> <Plug>(caw:i:toggle)
+
+    call neobundle#end()
+endif
+
+filetype plugin indent on     " これをONにしないと機動しない
+filetype indent on
+
+
+"----------------------------------------------------
+" プラグインのインストール :NeoBundleInstall
+" プラグインのアップデート :NeoBundleInstall!
+" プラグインのアンインストール :NeoBundleClean
+"----------------------------------------------------
+
+" NERDTreeで見せたくないファイルの設定
+let g:NERDTreeIgnore=['\.class$', '\.clean$', '\.swp$', '\.bak$', '\~$']
+
+"----------------------------------------------------
+" vim-tags
+"----------------------------------------------------
+"au BufNewFile,BufRead *.php let g:vim_tags_project_tags_command = "ctags --languages=php -f ~/php.tags `pwd` 2>/dev/null &"
+" tagsジャンプの時に複数ある時は一覧表示
+nnoremap <C-]> g<C-]>
+
+"----------------------------------------------------
+" pre-vim プレビューするためのショートカット
+"----------------------------------------------------
+map <C-P>   :PrevimOpen
+
+"----------------------------------------------------
+" マウス操作を有効 スクロールやダブルクリックとかとか
+"----------------------------------------------------
+set mouse=niv
+set clipboard=unnamed
+
+set mouse=a
+set guioptions+=a
+set ttymouse=xterm2
+
+
+"----------------------------------------------------
+" NerdTree設定
+"----------------------------------------------------
+"引数なしでvimを開いたらNERDTreeを起動
+"autocmd vimenter * if !argc() | NERDTree | endif
+
+"NERDTreeのon、offのショートカットキー
+map <C-E>   :NERDTreeToggle<CR>
+
+"常にNerdTreeを開く
+"autocmd vimenter * NERDTree
+
+"他のバッファをすべて閉じた時にNERDTreeが開いていたらNERDTreeも一緒に閉じる
+" autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+
+
+"----------------------------------------------------
+" rainbow pranthese
+"----------------------------------------------------
+let g:rbpt_colorpairs = [
+    \ ['brown',       'RoyalBlue3'],
+    \ ['Darkblue',    'SeaGreen3'],
+    \ ['darkgray',    'DarkOrchid3'],
+    \ ['darkgreen',   'firebrick3'],
+    \ ['darkcyan',    'RoyalBlue3'],
+    \ ['darkred',     'SeaGreen3'],
+    \ ['darkmagenta', 'DarkOrchid3'],
+    \ ['brown',       'firebrick3'],
+    \ ['gray',        'RoyalBlue3'],
+    \ ['black',       'SeaGreen3'],
+    \ ['darkmagenta', 'DarkOrchid3'],
+    \ ['Darkblue',    'firebrick3'],
+    \ ['darkgreen',   'RoyalBlue3'],
+    \ ['darkcyan',    'SeaGreen3'],
+    \ ['darkred',     'DarkOrchid3'],
+    \ ['red',         'firebrick3'],
+    \ ]
+au VimEnter * RainbowParenthesesToggle
+
+
+"----------------------------------------------------
+" 今までの内容を入れる
+" 基本的な設定
+"----------------------------------------------------
+" viとの互換性をとらない(vimの独自拡張機能を使う為)
+set nocompatible
+" 改行コードの自動認識
+set fileformats=unix,dos,mac
+" ビープ音を鳴らさない
+set vb t_vb=
+" バックスペースキーで削除できるものを指定
+" indent  : 行頭の空白
+" eol     : 改行
+" start   : 挿入モード開始位置より手前の文字
+set backspace=indent,eol,start
+
+"----------------------------------------------------
+" バックアップ関係
+"----------------------------------------------------
+" バックアップをとらない
+set nobackup
+" ファイルの上書きの前にバックアップを作る
+" (ただし、backup がオンでない限り、バックアップは上書きに成功した後削除される)
+set writebackup
+" バックアップをとる場合
+"set backup
+" バックアップファイルを作るディレクトリ
+"set backupdir=~/.backup
+" スワップファイルを作るディレクトリ
+"set directory=~/.swap
+
+"----------------------------------------------------
+" 検索関係
+"----------------------------------------------------
+" コマンド、検索パターンを200個まで履歴に残す
+set history=200
+" 検索の時に大文字小文字を区別しない
+set ignorecase
+" 検索の時に大文字が含まれている場合は区別して検索する
+set smartcase
+" 最後まで検索したら先頭に戻る
+set wrapscan
+" インクリメンタルサーチを使わない
+set noincsearch
+
+"----------------------------------------------------
+" 表示関係
+"----------------------------------------------------
+" タイトルをウインドウ枠に表示する
+set title
+" 行番号を表示
+set number
+" ルーラーを表示
+set ruler
+" 入力中のコマンドをステータスに表示する
+set showcmd
+" ステータスラインを常に表示
+set laststatus=2
+" 括弧入力時の対応する括弧を表示
+" set showmatch
+" 対応する括弧の表示時間を2にする
+set matchtime=2
+" シンタックスハイライトを有効にする
+syntax on
+" 検索結果文字列のハイライトを有効にする
+set hlsearch
+" コメント文の色を変更
+highlight Comment ctermfg=DarkCyan
+
+" コマンドライン補完を拡張モードにする
+" :e でファイルを選択するとき、↑キーでディレクトリを辿る
+set wildmenu
+
+" 入力されているテキストの最大幅
+" (行がそれより長くなると、この幅を超えないように空白の後で改行される)を無効にする
+set textwidth=0
+" ウィンドウの幅より長い行は折り返して、次の行に続けて表示する
+set wrap
+
+"----------------------------------------------------
+" tabの可視化
+"----------------------------------------------------
+set list
+set listchars=tab:>\ \,trail:-,nbsp:%,extends:>,precedes:<
+
+"----------------------------------------------------
+" 全角スペースの表示
+"----------------------------------------------------
+"highlight ZenkakuSpace cterm=underline ctermfg=lightblue guibg=darkgray
+"match ZenkakuSpace /　/
+highlight JpSpace cterm=underline ctermfg=Blue guifg=Blue
+au BufRead,BufNew * match JpSpace /　/
+
+"----------------------------------------------------
+" ステータスラインに表示する情報の指定
+"----------------------------------------------------
+"set statusline=%n\:%y%F\ \|%{(&fenc!=''?&fenc:&enc).'\|'.&ff.'\|'}%m%r%=<%l/%L:%p%%>
+"set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [ASCII=\%03.3b]\ [HEX=\%02.2B]\ [POS=%04l,%04v][%p%%]\ [LEN=%L]
+ set statusline=%{expand('%:p:t')}\ %<[%{expand('%:p:h')}]%=\ %m%r%y%w[%{&fenc!=''?&fenc:&enc}][%{&ff}][%3l,%3c,%3p]
+" ステータスラインの色
+highlight StatusLine   term=NONE cterm=NONE ctermfg=black ctermbg=brown
+
+"----------------------------------------------------
+" インデント
+"----------------------------------------------------
+" オートインデントを無効にする
+set autoindent
+" タブが対応する空白の数
+set tabstop=4
+" タブやバックスペースの使用等の編集操作をするときに、タブが対応する空白の数
+set softtabstop=4
+" インデントの各段階に使われる空白の数
+set shiftwidth=4
+" タブを挿入するとき、代わりに空白を使わない
+" set noexpandtab
+" タブを挿入するとき、代わりに空白にする
+set expandtab
+
+"----------------------------------------------------
+" 国際化関係
+"----------------------------------------------------
+" 文字コードの設定
+" fileencodingsの設定ではencodingの値を一番最後に記述する
+set encoding=utf-8
+set termencoding=utf-8
+set fileencoding=utf-8
+set fileencodings=utf-8,euc-jp,cp932,iso-2022-jp
+set fileencodings+=,ucs-2le,ucs-2
+
+"----------------------------------------------------
+" オートコマンド
+"----------------------------------------------------
+if has("autocmd")
+    " ファイルタイプ別インデント、プラグインを有効にする
+    filetype plugin indent on
+    " カーソル位置を記憶する
+    autocmd BufReadPost *
+        \ if line("'\"") > 0 && line("'\"") <= line("$") |
+        \   exe "normal g`\"" |
+        \ endif
+endif
+
+"----------------------------------------------------
+" その他
+"----------------------------------------------------
+" バッファを切替えてもundoの効力を失わない
+set hidden
+" 起動時のメッセージを表示しない
+set shortmess+=I
+
+
+" 検索した後、ハイライトをESCダブルクリックで消す
+set hlsearch
+nmap <Esc><Esc> :nohlsearch<CR><Esc>
+
+"-------------------------------------------------
+" カーソルの行を反転
+"-------------------------------------------------
+"highlight CursorLine term=reverse cterm=reverse
+
+"-------------------------------------------------
+" カーソル行をカスタマイズ
+"-------------------------------------------------
+set cursorline
+
+"-------------------------------------------------
+" カーソルをダークグレイで反転
+"-------------------------------------------------
+"set t_Co=256
+"highlight CursorColumn term=reverse cterm=reverse
+"hi CursorLine   term=reverse cterm=none ctermbg=242
+
+"-------------------------------------------------
+" カーソル行を淡い灰色で表示
+"-------------------------------------------------
+highlight CursorLine cterm=underline ctermfg=NONE ctermbg=NONE
+"highlight CursorLine cterm=NONE ctermfg=NONE ctermbg=white
+
+"-------------------------------------------------
+" perltidyで整形
+"-------------------------------------------------
+"map ,pt <Esc>:%! perltidy<CR>
+
+" .mdファイルをマークダウン形式でハイライト
+au BufRead,BufNewFile *.md set filetype=markdown
+
+"-------------------------------------------------
+" 香り屋で自動的に改行するのを防ぐ
+"-------------------------------------------------
+"set formatoptions=q
+"source ~/.vim/bundle/vundle/test/minirc.vim
+autocmd FileType text setlocal textwidth=0
+
+
+"-------------------------------------------------
+" 折りたたみ設定
+"-------------------------------------------------
+" zo - カーソル下にある折りたたみをひとつ開く
+" zO - カーソル下にある折りたたみを全て開く
+" zc - カーソル下にある折りたたみをひとつ閉じる
+" zC - カーソル下にある折りたたみを全て閉じる
+"set foldmethod=syntax
+"let perl_fold=1
+"set foldlevel=100 "Don't autofold anything"
+
+"-------------------------------------------------
+" lightline.vim設定
+"-------------------------------------------------
+" vim-gitgutter
+let g:gitgutter_sign_added = '✚'
+let g:gitgutter_sign_modified = '➜'
+let g:gitgutter_sign_removed = '✘'
+
+" lightline.vim
+" let g:lightline = {
+"         \ 'colorscheme': 'landscape',
+"         \ 'mode_map': {'c': 'NORMAL'},
+"         \ 'active': {
+"         \   'left': [
+"         \     ['mode', 'paste'],
+"         \     ['fugitive', 'gitgutter', 'filename'],
+"         \   ],
+"         \   'right': [
+"         \     ['lineinfo', 'syntastic'],
+"         \     ['percent'],
+"         \     ['charcode', 'fileformat', 'fileencoding', 'filetype'],
+"         \   ]
+"         \ },
+"         \ 'component_function': {
+"         \   'modified': 'MyModified',
+"         \   'readonly': 'MyReadonly',
+"         \   'fugitive': 'MyFugitive',
+"         \   'filename': 'MyFilename',
+"         \   'fileformat': 'MyFileformat',
+"         \   'filetype': 'MyFiletype',
+"         \   'fileencoding': 'MyFileencoding',
+"         \   'mode': 'MyMode',
+"         \   'syntastic': 'SyntasticStatuslineFlag',
+"         \   'charcode': 'MyCharCode',
+"         \   'gitgutter': 'MyGitGutter',
+"         \ },
+"         \ 'separator': {'left': '⮀', 'right': '⮂'},
+"         \ 'subseparator': {'left': '⮁', 'right': '⮃'}
+"         \ }
+
+function! MyModified()
+  return &ft =~ 'help\|vimfiler\|gundo' ? '' : &modified ? '+' : &modifiable ? '' : '-'
+endfunction
+
+function! MyReadonly()
+  return &ft !~? 'help\|vimfiler\|gundo' && &ro ? '⭤' : ''
+endfunction
+
+function! MyFilename()
+  return ('' != MyReadonly() ? MyReadonly() . ' ' : '') .
+        \ (&ft == 'vimfiler' ? vimfiler#get_status_string() :
+        \  &ft == 'unite' ? unite#get_status_string() :
+        \  &ft == 'vimshell' ? substitute(b:vimshell.current_dir,expand('~'),'~','') :
+        \ '' != expand('%:t') ? expand('%:t') : '[No Name]') .
+        \ ('' != MyModified() ? ' ' . MyModified() : '')
+endfunction
+
+function! MyFugitive()
+  try
+    if &ft !~? 'vimfiler\|gundo' && exists('*fugitive#head')
+      let _ = fugitive#head()
+      return strlen(_) ? '⭠ '._ : ''
+    endif
+  catch
+  endtry
+  return ''
+endfunction
+
+function! MyFileformat()
+  return winwidth('.') > 70 ? &fileformat : ''
+endfunction
+
+function! MyFiletype()
+  return winwidth('.') > 70 ? (strlen(&filetype) ? &filetype : 'no ft') : ''
+endfunction
+
+function! MyFileencoding()
+  return winwidth('.') > 70 ? (strlen(&fenc) ? &fenc : &enc) : ''
+endfunction
+
+function! MyMode()
+  return winwidth('.') > 60 ? lightline#mode() : ''
+endfunction
+
+function! MyGitGutter()
+  if ! exists('*GitGutterGetHunkSummary')
+        \ || ! get(g:, 'gitgutter_enabled', 0)
+        \ || winwidth('.') <= 90
+    return ''
+  endif
+  let symbols = [
+        \ g:gitgutter_sign_added . ' ',
+        \ g:gitgutter_sign_modified . ' ',
+        \ g:gitgutter_sign_removed . ' '
+        \ ]
+  let hunks = GitGutterGetHunkSummary()
+  let ret = []
+  for i in [0, 1, 2]
+    if hunks[i] > 0
+      call add(ret, symbols[i] . hunks[i])
+    endif
+  endfor
+  return join(ret, ' ')
+endfunction
+
+" https://github.com/Lokaltog/vim-powerline/blob/develop/autoload/Powerline/Functions.vim
+function! MyCharCode()
+  if winwidth('.') <= 70
+    return ''
+  endif
+
+  " Get the output of :ascii
+  redir => ascii
+  silent! ascii
+  redir END
+
+  if match(ascii, 'NUL') != -1
+    return 'NUL'
+  endif
+
+  " Zero pad hex values
+  let nrformat = '0x%02x'
+
+  let encoding = (&fenc == '' ? &enc : &fenc)
+
+  if encoding == 'utf-8'
+    " Zero pad with 4 zeroes in unicode files
+    let nrformat = '0x%04x'
+  endif
+
+  " Get the character and the numeric value from the return value of :ascii
+  " This matches the two first pieces of the return value, e.g.
+  " "<F>  70" => char: 'F', nr: '70'
+  let [str, char, nr; rest] = matchlist(ascii, '\v\<(.{-1,})\>\s*([0-9]+)')
+
+  " Format the numeric value
+  let nr = printf(nrformat, nr)
+
+  return "'". char ."' ". nr
+endfunction
+
+" ----------------------------------------------
+" コピペする際に右に崩れないようにする
+" ただし、autoindetが無効になるので注意
+" ----------------------------------------------
+set paste
+
+" ----------------------------------------------
+" ファイルの拡張子が特殊な場合でも構文ハイライトを有効にする
+" ----------------------------------------------
+autocmd BufNewFile,BufRead *.psgi set filetype=perl
+autocmd BufNewFile,BufRead *.t    set filetype=perl
+autocmd BufNewFile,BufRead *.cgi  set filetype=ruby
+" autocmd BufNewFile,BufRead *.cgi  set filetype=perl
+
+" ----------------------------------------------
+" かっこの対応を無効化する
+" ----------------------------------------------
+let loaded_matchparen = 1
