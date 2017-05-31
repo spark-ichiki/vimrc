@@ -1,3 +1,8 @@
+" ==========================
+" 起動時のメッセージを表示しない
+" ==========================
+set shortmess+=I
+
 " Note: Skip initialization for vim-tiny or vim-small.
 if 0 | endif
 
@@ -13,12 +18,21 @@ call neobundle#begin(expand('~/.vim/bundle/'))
 
 " Let NeoBundle manage NeoBundle
 " Required:
+" netBundle本体
 NeoBundleFetch 'Shougo/neobundle.vim'
+" My Bundles here:
+" Refer to |:NeoBundle-examples|.
+" Note: You don't set neobundle setting in .gvimrc!
+" NERDTree
 NeoBundle 'scrooloose/nerdtree'
+" NERDTree option
 NeoBundle 'jistr/vim-nerdtree-tabs'
-NeoBundle 'Shougo/unite.vim'
+" NeoBundle 'Shougo/unite.vim' " <- これは後で
+" 非同期処理
 NeoBundle 'Shougo/vimproc'
+" タブ事のカレントディレクトリ
 NeoBundle 'kana/vim-tabpagecd'
+" ステータスをカラフルに（vim-power-lineより簡単）
 NeoBundle 'itchyny/lightline.vim'
 " 多機能セレクタ
 NeoBundle 'ctrlpvim/ctrlp.vim'
@@ -26,9 +40,8 @@ NeoBundle 'ctrlpvim/ctrlp.vim'
 NeoBundle 'tacahiroy/ctrlp-funky'
 " CtrlPの拡張プラグイン. コマンド履歴検索
 NeoBundle 'suy/vim-ctrlp-commandline'
-" My Bundles here:
-" Refer to |:NeoBundle-examples|.
-" Note: You don't set neobundle setting in .gvimrc!
+" 複数行をコメントアウト
+NeoBundle "tyru/caw.vim.git"
 
 call neobundle#end()
 
@@ -39,9 +52,13 @@ filetype plugin indent on
 " this will conveniently prompt you to install them.
 NeoBundleCheck
 
+
 " ==========================
 " NERDTREE
 " ==========================
+" NERDTreeで見せたくないファイルの設定
+let g:NERDTreeIgnore=['\.class$', '\.clean$', '\.swp$', '\.bak$', '\~$']
+
 " 隠しファイルを表示する
 let NERDTreeShowHidden = 1
 
@@ -56,14 +73,29 @@ let g:nerdtree_tabs_open_on_console_startup=1
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 
-
+" ==========================
+" 行番号の表示
+" ==========================
 set number
+
+
+" ==========================
+" tabと全角スペースの可視化
+" ==========================
+set list
+set listchars=tab:>\ \,trail:-,nbsp:%,extends:>,precedes:<
+"highlight ZenkakuSpace cterm=underline ctermfg=lightblue guibg=darkgray
+"match ZenkakuSpace /　/
+highlight JpSpace cterm=underline ctermfg=Blue guifg=Blue
+au BufRead,BufNew * match JpSpace /　/
+
 
 " ==========================
 " マウス設定
 " ==========================
 set mouse=a
 set ttymouse=xterm2
+
 
 " ==========================
 " 文字コード設定
@@ -84,6 +116,7 @@ set autoindent " 改行時に前の行のインデントを継続する
 set smartindent " 改行時に前の行の構文をチェックし次の行のインデントを増減する
 set shiftwidth=4 " smartindentで増減する幅
 
+
 " ==========================
 " 検索設定
 " ==========================
@@ -95,12 +128,16 @@ set hlsearch " 検索結果をハイライト
 " ESCキー2度押しでハイライトの切り替え
 nnoremap <silent><Esc><Esc> :<C-u>set nohlsearch!<CR>
 
+
 " ==========================
 " カーソル設定
 " ==========================
 set whichwrap=b,s,h,l,<,>,[,],~ " カーソルの左右移動で行末から次の行の行頭への移動が可能になる
 set number " 行番号を表示
 set cursorline " カーソルラインをハイライト
+"highlight CursorLine cterm=underline ctermfg=NONE ctermbg=NONE
+"highlight CursorLine cterm=NONE ctermfg=NONE ctermbg=white
+
 
 " 行が折り返し表示されていた場合、行単位ではなく表示行単位でカーソルを移動する
 nnoremap j gj
@@ -110,6 +147,7 @@ nnoremap <up> gk
 
 " バックスペースキーの有効化
 set backspace=indent,eol,start
+
 
 " ==========================
 " 貼り付け設定
@@ -127,6 +165,7 @@ if &term =~ "xterm"
     inoremap <special> <expr> <Esc>[200~ XTermPasteBegin("")
 endif
 
+
 " ==========================
 " ステータスラインの設定
 " ==========================
@@ -134,6 +173,7 @@ set laststatus=2 " ステータスラインを常に表示
 set showmode " 現在のモードを表示
 set showcmd " 打ったコマンドをステータスラインの下に表示
 set ruler " ステータスラインの右側にカーソルの現在位置を表示する
+
 
 " ==========================
 " CtrlPの設定
@@ -149,3 +189,18 @@ command! CtrlPCommandLine call ctrlp#init(ctrlp#commandline#id())
 " CtrlPFunkyの有効化
 let g:ctrlp_funky_matchtype = 'path' 
 
+
+" ==========================
+" 複数行コメントアウトのショートカット
+" ==========================
+nmap <C-K> <Plug>(caw:i:toggle)
+vmap <C-K> <Plug>(caw:i:toggle)
+
+
+" ==========================
+" ファイルの拡張子が特殊な場合でも構文ハイライトを有効にする
+" ==========================
+"autocmd BufNewFile,BufRead *.psgi set filetype=perl
+"autocmd BufNewFile,BufRead *.t    set filetype=perl
+"autocmd BufNewFile,BufRead *.cgi  set filetype=ruby
+"autocmd BufNewFile,BufRead *.cgi  set filetype=perl
