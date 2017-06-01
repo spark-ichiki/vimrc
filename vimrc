@@ -92,10 +92,10 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 
 
 " ==========================
-" 行番号の表示
+" 行番号関連
 " ==========================
-set number
-
+set number " 行番号表示
+hi CursorLineNr term=bold   cterm=NONE ctermfg=228 ctermbg=NONE
 
 " ==========================
 " tabと全角スペースの可視化
