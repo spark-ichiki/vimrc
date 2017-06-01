@@ -3,6 +3,15 @@
 " ==========================
 set shortmess+=I
 
+
+" ==========================
+" NeoBundle設定
+" ==========================
+"----------------------------------------------------
+" プラグインのインストール :NeoBundleInstall
+" プラグインのアップデート :NeoBundleInstall!
+" プラグインのアンインストール :NeoBundleClean
+"----------------------------------------------------
 " Note: Skip initialization for vim-tiny or vim-small.
 if 0 | endif
 
@@ -20,6 +29,16 @@ call neobundle#begin(expand('~/.vim/bundle/'))
 " Required:
 " netBundle本体
 NeoBundleFetch 'Shougo/neobundle.vim'
+" 非同期処理
+NeoBundle 'Shougo/vimproc.vim', {
+\ 'build' : {
+\     'windows' : 'tools\\update-dll-mingw',
+\     'cygwin' : 'make -f make_cygwin.mak',
+\     'mac' : 'make -f make_mac.mak',
+\     'linux' : 'make',
+\     'unix' : 'gmake',
+\    },
+\ }
 " My Bundles here:
 " Refer to |:NeoBundle-examples|.
 " Note: You don't set neobundle setting in .gvimrc!
@@ -27,9 +46,8 @@ NeoBundleFetch 'Shougo/neobundle.vim'
 NeoBundle 'scrooloose/nerdtree'
 " NERDTree option
 NeoBundle 'jistr/vim-nerdtree-tabs'
-" NeoBundle 'Shougo/unite.vim' " <- これは後で
-" 非同期処理
-NeoBundle 'Shougo/vimproc'
+" ご存知uniteでも今は無効
+" NeoBundle 'Shougo/unite.vim'
 " タブ事のカレントディレクトリ
 NeoBundle 'kana/vim-tabpagecd'
 " ステータスをカラフルに（vim-power-lineより簡単）
