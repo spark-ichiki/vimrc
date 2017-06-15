@@ -223,3 +223,15 @@ vmap <C-K> <Plug>(caw:i:toggle)
 "autocmd BufNewFile,BufRead *.cgi  set filetype=ruby
 "autocmd BufNewFile,BufRead *.cgi  set filetype=perl
 
+" ==========================
+" perltidy（要インストール）
+" ==========================
+" map ,pt <Esc>:%! perltidy<CR>
+" Perltidy
+
+" ファイル保存時にperltidyを実行
+" function! s:Perltidy()
+"     %! perltidy -q
+" endfunction
+" autocmd BufWritePre *.pl silent :call s:Perltidy() 
+" autocmd BufWritePre *.pm silent :call s:Perltidy()
