@@ -218,9 +218,15 @@ vmap <C-K> <Plug>(caw:i:toggle)
 
 
 " ==========================
-" カラースキーマー
+" カラースキーマー 構文ハイライト
 " ==========================
-colorscheme molokai
+"colorscheme molokai
+if &term == "xterm-256color"
+    colorscheme molokai
+    hi Comment ctermfg=102
+    hi Visual  ctermbg=236
+endif
+
 syntax on
 
 " ==========================
@@ -228,7 +234,7 @@ syntax on
 " ==========================
 "autocmd BufNewFile,BufRead *.psgi set filetype=perl
 "autocmd BufNewFile,BufRead *.t    set filetype=perl
-autocmd BufNewFile,BufRead *.pm   set filetype=perl
+"autocmd BufNewFile,BufRead *.pm   set filetype=perl
 "autocmd BufNewFile,BufRead *.cgi  set filetype=ruby
 "autocmd BufNewFile,BufRead *.cgi  set filetype=perl
 
