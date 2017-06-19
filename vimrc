@@ -60,6 +60,8 @@ NeoBundle 'tacahiroy/ctrlp-funky'
 NeoBundle 'suy/vim-ctrlp-commandline'
 " 複数行をコメントアウト
 NeoBundle "tyru/caw.vim.git"
+" カラースキーマー
+NeoBundle 'tomasr/molokai'
 
 call neobundle#end()
 
@@ -216,10 +218,17 @@ vmap <C-K> <Plug>(caw:i:toggle)
 
 
 " ==========================
+" カラースキーマー
+" ==========================
+colorscheme molokai
+syntax on
+
+" ==========================
 " ファイルの拡張子が特殊な場合でも構文ハイライトを有効にする
 " ==========================
 "autocmd BufNewFile,BufRead *.psgi set filetype=perl
 "autocmd BufNewFile,BufRead *.t    set filetype=perl
+autocmd BufNewFile,BufRead *.pm   set filetype=perl
 "autocmd BufNewFile,BufRead *.cgi  set filetype=ruby
 "autocmd BufNewFile,BufRead *.cgi  set filetype=perl
 
