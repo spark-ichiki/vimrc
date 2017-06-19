@@ -61,7 +61,8 @@ NeoBundle 'suy/vim-ctrlp-commandline'
 " 複数行をコメントアウト
 NeoBundle "tyru/caw.vim.git"
 " カラースキーマー
-NeoBundle 'tomasr/molokai'
+"NeoBundle 'tomasr/molokai'
+NeoBundle 'altercation/vim-colors-solarized'
 
 call neobundle#end()
 
@@ -221,13 +222,16 @@ vmap <C-K> <Plug>(caw:i:toggle)
 " カラースキーマー 構文ハイライト
 " ==========================
 "colorscheme molokai
-if &term == "xterm-256color"
-    colorscheme molokai
-    hi Comment ctermfg=102
-    hi Visual  ctermbg=236
-endif
+"if &term == "xterm-256color"
+"    colorscheme molokai
+"    hi Comment ctermfg=102
+"    hi Visual  ctermbg=236
+"endif
 
-syntax on
+syntax enable
+
+set background=dark
+colorscheme solarized
 
 " ==========================
 " ファイルの拡張子が特殊な場合でも構文ハイライトを有効にする
