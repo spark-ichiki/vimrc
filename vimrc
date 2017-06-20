@@ -214,8 +214,8 @@ let g:ctrlp_funky_matchtype = 'path'
 " ==========================
 " 複数行コメントアウトのショートカット
 " ==========================
-nmap <C-K> <Plug>(caw:i:toggle)
-vmap <C-K> <Plug>(caw:i:toggle)
+nmap <C-K> <Plug>(caw:hatpos:toggle)
+vmap <C-K> <Plug>(caw:hatpos:toggle)
 
 
 " ==========================
