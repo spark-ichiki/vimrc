@@ -60,9 +60,6 @@ NeoBundle 'tacahiroy/ctrlp-funky'
 NeoBundle 'suy/vim-ctrlp-commandline'
 " 複数行をコメントアウト
 NeoBundle "tyru/caw.vim.git"
-" カラースキーマー
-"NeoBundle 'tomasr/molokai'
-NeoBundle 'altercation/vim-colors-solarized'
 
 call neobundle#end()
 
@@ -77,8 +74,10 @@ NeoBundleCheck
 " ==========================
 " NERDTREE
 " ==========================
+" 変更を許可
+set modifiable
 " NERDTreeで見せたくないファイルの設定
-let g:NERDTreeIgnore=['\.class$', '\.clean$', '\.swp$', '\.bak$', '\~$']
+let g:NERDTreeIgnore=['\.class$', '\.clean$', '\.swp$', '\.bak$', '\~$', '.DS_Store']
 
 " 隠しファイルを表示する
 let NERDTreeShowHidden = 1
@@ -214,32 +213,8 @@ let g:ctrlp_funky_matchtype = 'path'
 " ==========================
 " 複数行コメントアウトのショートカット
 " ==========================
-nmap <C-K> <Plug>(caw:hatpos:toggle)
-vmap <C-K> <Plug>(caw:hatpos:toggle)
-
-
-" ==========================
-" カラースキーマー 構文ハイライト
-" ==========================
-"colorscheme molokai
-"if &term == "xterm-256color"
-"    colorscheme molokai
-"    hi Comment ctermfg=102
-"    hi Visual  ctermbg=236
-"endif
-
-syntax enable
-
-"set background=dark
-"colorscheme solarized
-
-" ==========================
-" バックアップファイル設定
-" ==========================
-set directory=~/.tmp
-set backupdir=~/.tmp
-set viminfo+=n~/.tmp
-set undodir=~/.tmp
+nmap <C-K> <Plug>(caw:i:toggle)
+vmap <C-K> <Plug>(caw:i:toggle)
 
 
 " ==========================
@@ -247,19 +222,6 @@ set undodir=~/.tmp
 " ==========================
 "autocmd BufNewFile,BufRead *.psgi set filetype=perl
 "autocmd BufNewFile,BufRead *.t    set filetype=perl
-"autocmd BufNewFile,BufRead *.pm   set filetype=perl
 "autocmd BufNewFile,BufRead *.cgi  set filetype=ruby
 "autocmd BufNewFile,BufRead *.cgi  set filetype=perl
 
-" ==========================
-" perltidy（要インストール）
-" ==========================
-" map ,pt <Esc>:%! perltidy<CR>
-" Perltidy
-
-" ファイル保存時にperltidyを実行
-" function! s:Perltidy()
-"     %! perltidy -q
-" endfunction
-" autocmd BufWritePre *.pl silent :call s:Perltidy() 
-" autocmd BufWritePre *.pm silent :call s:Perltidy()
