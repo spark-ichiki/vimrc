@@ -60,9 +60,16 @@ NeoBundle 'tacahiroy/ctrlp-funky'
 NeoBundle 'suy/vim-ctrlp-commandline'
 " 複数行をコメントアウト
 NeoBundle "tyru/caw.vim.git"
+"NeoBundle 'tpope/vim-commentary'
 " カラースキーマー
 "NeoBundle 'tomasr/molokai'
 NeoBundle 'altercation/vim-colors-solarized'
+" インデント可視化
+"NeoBundle 'nathanaelkane/vim-indent-guides'
+" yaml専用インデント
+NeoBundle 'chase/vim-ansible-yaml'
+" クオーテーション自動補完
+NeoBundle 'cohama/lexima.vim'
 
 call neobundle#end()
 
@@ -93,6 +100,21 @@ let g:nerdtree_tabs_open_on_console_startup=1
 " 他のバッファをすべて閉じた時にNERDTreeが開いていたらNERDTreeも一緒に閉じる。
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
+" ==========================
+" vim-indent-guides
+" ==========================
+" Vim 起動時 vim-indent-guides を自動起動
+"let g:indent_guides_enable_on_vim_startup=1
+" ガイドをスタートするインデントの量
+"let g:indent_guides_start_level=2
+" 自動カラー無効
+"let g:indent_guides_auto_colors=0
+" 奇数番目のインデントの色
+"autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=#444433 ctermbg=black
+" 偶数番目のインデントの色
+"autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=#333344 ctermbg=darkgray
+" ガイドの幅
+"let g:indent_guides_guide_size = 1
 
 " ==========================
 " 行番号関連
@@ -131,11 +153,11 @@ set ambiwidth=double " □や○文字が崩れる問題を解解決
 " タブ・インデント設定
 " ==========================
 set expandtab " タブ入力を複数の空白入力に置き換える
-set tabstop=4 " 画面上でタブ文字が占める幅
-set softtabstop=4 " 連続した空白に対してタブキーやバックスペースキーでカーソルが動く幅
+set tabstop=2 " 画面上でタブ文字が占める幅
+set softtabstop=2 " 連続した空白に対してタブキーやバックスペースキーでカーソルが動く幅
 set autoindent " 改行時に前の行のインデントを継続する
-set smartindent " 改行時に前の行の構文をチェックし次の行のインデントを増減する
-set shiftwidth=4 " smartindentで増減する幅
+"set smartindent " 改行時に前の行の構文をチェックし次の行のインデントを増減する
+"set shiftwidth=2 " smartindentで増減する幅
 
 
 " ==========================
@@ -236,10 +258,10 @@ syntax enable
 " ==========================
 " バックアップファイル設定
 " ==========================
-set directory=~/.tmp
-set backupdir=~/.tmp
-set viminfo+=n~/.tmp
-set undodir=~/.tmp
+"set directory=~/.tmp
+"set backupdir=~/.tmp
+"set viminfo+=n~/.tmp
+"set undodir=~/.tmp
 
 
 " ==========================
@@ -263,3 +285,9 @@ set undodir=~/.tmp
 " endfunction
 " autocmd BufWritePre *.pl silent :call s:Perltidy() 
 " autocmd BufWritePre *.pm silent :call s:Perltidy()
+
+" ==========================
+" 履歴のコマンド補完
+" ==========================
+set wildmenu " コマンドモードの補完
+set history=5000 " 保存するコマンド履歴の数
