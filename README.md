@@ -6,6 +6,8 @@ vim 8.0になるまでは、NeoBundleを使用し、それ以降はdein.vimに�
 ```
 [...]$ mkdir -p ~/.vim/bundle
 [...]$ git clone git://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim
+[...]$ mkdir ~/.vim/tmp
+[...]$ chmod 777 ~/.vim/tmp
 ```
 
 その後、この管理されているvimrcファイルをハードリンクする。
