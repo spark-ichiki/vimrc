@@ -85,7 +85,7 @@ NeoBundleCheck
 " NERDTREE
 " ==========================
 " NERDTreeで見せたくないファイルの設定
-let g:NERDTreeIgnore=['\.class$', '\.clean$', '\.swp$', '\.bak$', '\~$']
+let g:NERDTreeIgnore=['\.class$', '\.clean$', '\.swp$', '\.bak$', '\~$', '.DS_Store']
 
 " 隠しファイルを表示する
 let NERDTreeShowHidden = 1
