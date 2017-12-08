@@ -261,10 +261,10 @@ syntax enable
 " ==========================
 " バックアップファイル設定
 " ==========================
-set directory=~/.vim/tmp
-set backupdir=~/.vim/tmp
-set viminfo+=n~/.vim/tmp
-set undodir=~/.vim/tmp
+"set directory=~/.vim/tmp
+"set backupdir=~/.vim/tmp
+"set viminfo+=n~/.vim/tmp
+"set undodir=~/.vim/tmp
 
 
 " ==========================
