@@ -30,15 +30,15 @@ call neobundle#begin(expand('~/.vim/bundle/'))
 " netBundle本体
 NeoBundleFetch 'Shougo/neobundle.vim'
 " 非同期処理
-NeoBundle 'Shougo/vimproc.vim', {
-\ 'build' : {
-\     'windows' : 'tools\\update-dll-mingw',
-\     'cygwin' : 'make -f make_cygwin.mak',
-\     'mac' : 'make -f make_mac.mak',
-\     'linux' : 'make',
-\     'unix' : 'gmake',
-\    },
-\ }
+" NeoBundle 'Shougo/vimproc.vim', {
+" \ 'build' : {
+" \     'windows' : 'tools\\update-dll-mingw',
+" \     'cygwin' : 'make -f make_cygwin.mak',
+" \     'mac' : 'make -f make_mac.mak',
+" \     'linux' : 'make',
+" \     'unix' : 'gmake',
+" \    }" ,
+" \ }
 " My Bundles here:
 " Refer to |:NeoBundle-examples|.
 " Note: You don't set neobundle setting in .gvimrc!
