@@ -27,7 +27,7 @@ call neobundle#begin(expand('~/.vim/bundle/'))
 
 " Let NeoBundle manage NeoBundle
 " Required:
-" netBundle本体
+" neoBundle本体
 NeoBundleFetch 'Shougo/neobundle.vim'
 " 非同期処理
 " NeoBundle 'Shougo/vimproc.vim', {
